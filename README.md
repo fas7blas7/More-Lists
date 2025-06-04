@@ -37,18 +37,67 @@ while (input != "end")
 Console.WriteLine(string.Join(" ", numbers));
 
 ```
+2️⃣ HouseParty 🥳
+Namespace: P02_HouseParty
+📌 Description:
+Manages a guest list based on commands like {name} is going and {name} is not going.
+Prints error messages if invalid operations are attempted and finally outputs the guest list.
+
+📝 Code:
+
+```csharp
+Copy
+Edit
+List<string> guestList = new List<string>();
+
+int n = int.Parse(Console.ReadLine());
+
+for (int i = 0; i < n; i++)
+{
+    string[] currentCmd = Console.ReadLine()
+        .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    string name = currentCmd[0];
+
+    if (currentCmd.Length == 3)
+    {
+        if (guestList.Contains(name))
+        {
+            Console.WriteLine($"{name} is already in the list!");
+            continue;
+        }
+
+        guestList.Add(name);
+    }
+    else if (currentCmd.Length == 4)
+    {
+        if (!guestList.Contains(name))
+        {
+            Console.WriteLine($"{name} is not in the list!");
+            continue;
+        }
+
+        guestList.Remove(name);
+    }
+}
+
+foreach (string name in guestList)
+{
+    Console.WriteLine(name);
+}
+
+```
 📅 Commit Progress Update:
 
-📅 Current Progress: 442 commits  
-📊 Progress Bar:  
-██████████████████████████████████████████▍88.4% (442/500)
+📅 Current Progress: 444 commits
+📊 Progress Bar:
+███████████████████████████████████████████▌88.8% (444/500)
 
-📌 Milestones:  
-✅ 100 commits  
-✅ 200 commits  
-✅ 300 commits  
-✅ 400 commits  
+📌 Milestones:
+✅ 100 commits
+✅ 200 commits
+✅ 300 commits
+✅ 400 commits
 🔲 500 commits (🎉)
 
-🎯 Commit Progress Tracker  
+🎯 Commit Progress Tracker
 🚀 Goal: 500 commits in 2025
