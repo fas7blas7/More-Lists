@@ -86,11 +86,134 @@ foreach (string name in guestList)
 }
 
 ```
+3️⃣ ListOperations 🛠️  
+Namespace: P03_ListOperations  
+📌 Description:  
+Reads a list of integers and processes a series of commands:  
+- `Add X` – adds `X` to the end of the list  
+- `Insert X Y` – inserts `X` at index `Y`, validates index  
+- `Remove X` – removes element at index `X`, validates index  
+- `Shift left X` / `Shift right X` – rotates the list `X` times  
+Ends with `"End"` and prints the final list state.
+
+📝 Code:
+
+```csharp
+namespace P03_ListOperations
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            string currentCmd = Console.ReadLine();
+            while (currentCmd != "End")
+            {
+                string[] cmdArgs = currentCmd
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                string cmdType = cmdArgs[0];
+                if (cmdType == "Add")
+                {
+                    int numberToAdd = int.Parse(cmdArgs[1]);
+                    numbers.Add(numberToAdd);
+                }
+                else if (cmdType == "Insert")
+                {
+                    int numberToInsert = int.Parse(cmdArgs[1]);
+                    int index = int.Parse(cmdArgs[2]);
+
+                    bool isSuccess = InsertNumber(numbers, numberToInsert, index);
+                    if (!isSuccess)
+                    {
+                        Console.WriteLine("Invalid index");
+                    }
+                }
+                else if (cmdType == "Remove")
+                {
+                    int removeIndex = int.Parse(cmdArgs[1]);
+
+                    bool isSuccess = RemoveNumber(numbers, removeIndex);
+                    if (!isSuccess)
+                    {
+                        Console.WriteLine("Invalid index");
+                    }
+                }
+                else if (cmdType == "Shift")
+                {
+                    string shiftDirection = cmdArgs[1];
+                    int shiftsCount = int.Parse(cmdArgs[2]);
+
+                    ShiftNumbers(numbers, shiftDirection, shiftsCount);
+                }
+
+                currentCmd = Console.ReadLine();
+            }
+
+            Console.WriteLine(string.Join(' ', numbers));
+        }
+
+        static void ShiftNumbers(List<int> numbers, string direction, int count)
+        {
+            if (numbers.Count > 1)
+            {
+                count = count % numbers.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    if (direction == "left")
+                    {
+                        int firstElement = numbers[0];
+                        numbers.RemoveAt(0);
+                        numbers.Add(firstElement);
+                    }
+                    else if (direction == "right")
+                    {
+                        int lastElement = numbers[^1];
+                        numbers.RemoveAt(numbers.Count - 1);
+                        numbers.Insert(0, lastElement);
+                    }
+                }
+            }
+        }
+
+        static bool RemoveNumber(List<int> numbers, int index)
+        {
+            if (IsIndexValid(numbers, index))
+            {
+                numbers.RemoveAt(index);
+                return true;
+            }
+            return false;
+        }
+
+        static bool InsertNumber(List<int> numbers, int number, int index)
+        {
+            if (IsIndexValid(numbers, index))
+            {
+                numbers.Insert(index, number);
+                return true;
+            }
+            return false;
+        }
+
+        static bool IsIndexValid(List<int> numbers, int index)
+        {
+            return index >= 0 && index < numbers.Count;
+        }
+    }
+}
+
+```
 📅 Commit Progress Update:
 
-📅 Current Progress: 444 commits
+📅 Current Progress: 446 commits
 📊 Progress Bar:
-███████████████████████████████████████████▌88.8% (444/500)
+█████████████████████████████████████████████░89.2% (446/500)
 
 📌 Milestones:
 ✅ 100 commits
