@@ -209,11 +209,66 @@ namespace P03_ListOperations
 }
 
 ```
+4️⃣ ListEditor ✏️
+Namespace: P04_ListEditor
+📌 Description:
+Reads a list of integers and processes commands dynamically:
+
+Add X – adds X to the end of the list
+
+Remove X – removes the first occurrence of X
+
+RemoveAt X – removes the element at index X
+
+Insert X Y – inserts X at index Y
+Ends with "end" and prints the final list state.
+
+📝 Code:
+
+```csharp
+Copy
+Edit
+List<int> numbers = Console.ReadLine().Split().Select(int.Parse).ToList();
+
+string command = Console.ReadLine();
+
+while (command != "end")
+{
+    string[] commandParts = command.Split(" ");
+    string commandName = commandParts[0];
+
+    switch (commandName)
+    {
+        case "Add":
+            int numberToAdd = int.Parse(commandParts[1]);
+            numbers.Add(numberToAdd);
+            break;
+        case "Remove":
+            int numberToRemove = int.Parse(commandParts[1]);
+            numbers.Remove(numberToRemove);
+            break;
+        case "RemoveAt":
+            int positionForRemove = int.Parse(commandParts[1]);
+            numbers.RemoveAt(positionForRemove);
+            break;
+        case "Insert":
+            int numberToInsert = int.Parse(commandParts[1]);
+            int positionToInsert = int.Parse(commandParts[2]);
+            numbers.Insert(positionToInsert, numberToInsert);
+            break;
+    }
+
+    command = Console.ReadLine();
+}
+
+Console.WriteLine(string.Join(" ", numbers));
+
+```
 📅 Commit Progress Update:
 
-📅 Current Progress: 446 commits
+📅 Current Progress: 448 commits
 📊 Progress Bar:
-█████████████████████████████████████████████░89.2% (446/500)
+██████████████████████████████████████████████░89.6% (448/500)
 
 📌 Milestones:
 ✅ 100 commits
