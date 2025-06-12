@@ -46,8 +46,7 @@ Prints error messages if invalid operations are attempted and finally outputs th
 📝 Code:
 
 ```csharp
-Copy
-Edit
+
 List<string> guestList = new List<string>();
 
 int n = int.Parse(Console.ReadLine());
@@ -226,8 +225,7 @@ Ends with "end" and prints the final list state.
 📝 Code:
 
 ```csharp
-Copy
-Edit
+
 List<int> numbers = Console.ReadLine().Split().Select(int.Parse).ToList();
 
 string command = Console.ReadLine();
@@ -264,11 +262,82 @@ while (command != "end")
 Console.WriteLine(string.Join(" ", numbers));
 
 ```
+5️⃣ BombNumbers 💣
+Namespace: P05_BombNumbers
+📌 Description:
+Reads a list of integers and a bomb specification (bombNumber and bombPower). For each occurrence of bombNumber, removes it along with bombPower numbers to its left and right (with boundary checks). Finally, prints the sum of the remaining numbers.
+
+📝 Code:
+
+```csharp
+
+namespace P05_BombNumbers
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+            int[] bombArgs = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            int bombNumber = bombArgs[0];
+            int bombPower = bombArgs[1];
+            if (bombPower < 0)
+            {
+                bombPower *= -1;
+            }
+
+            while (numbers.Contains(bombNumber))
+            {
+                int indexOfBomb = numbers.IndexOf(bombNumber);
+                int leftIndex = indexOfBomb - bombPower;
+                if (leftIndex < 0)
+                {
+                    leftIndex = 0;
+                }
+
+                int rightIndex = indexOfBomb + bombPower;
+                if (rightIndex >= numbers.Count)
+                {
+                    rightIndex = numbers.Count - 1;
+                }
+
+                int elementsToRemove = rightIndex - leftIndex + 1;
+                for (int i = 0; i < elementsToRemove; i++)
+                {
+                    numbers.RemoveAt(leftIndex);
+                }
+            }
+
+            long numbersSum = SumNumbers(numbers);
+            Console.WriteLine(numbersSum);
+        }
+
+        static long SumNumbers(List<int> numbers)
+        {
+            long sum = 0L;
+            foreach (int number in numbers)
+            {
+                sum += number;
+            }
+
+            return sum;
+        }
+    }
+}
+
+```
 📅 Commit Progress Update:
 
-📅 Current Progress: 448 commits
+📅 Current Progress: 450 commits
 📊 Progress Bar:
-██████████████████████████████████████████████░89.6% (448/500)
+███████████████████████████████████████████████░90.0% (450/500)
 
 📌 Milestones:
 ✅ 100 commits
